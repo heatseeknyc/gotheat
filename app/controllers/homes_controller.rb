@@ -1,6 +1,11 @@
 require 'httparty'
 class HomesController < ApplicationController
   def index
+    @buildings = Building.first
+    @hash = Gmaps4rails.build_markers(@buildings) do |b, marker|
+      marker.lat b.lat
+      marker.lng b.long
+    end
   end
 
   def create
@@ -31,8 +36,5 @@ class HomesController < ApplicationController
     end
     redirect_to :controller => 'homes', :action => 'index', :vote => "#{vote}"
 
-    # byebug
-
-    #check if score what score is
   end
 end

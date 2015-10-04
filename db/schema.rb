@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 20151004042255) do
 
   create_table "buildings", force: :cascade do |t|
     t.string   "building"
-    t.decimal  "lat"
-    t.decimal  "long"
+    t.text     "lat"
+    t.text     "long"
     t.integer  "zip"
     t.string   "city"
     t.boolean  "score"
