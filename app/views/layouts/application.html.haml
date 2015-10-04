@@ -15,15 +15,15 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.navbar-brand{:href => "#"} GotHeat
+          %a.navbar-brand{:href => url_for(controller: :homes, action: :index)} GotHeat
         #navbar.collapse.navbar-collapse
           %ul.nav.navbar-nav
             %li.active
-              %a{:href => "#"} Home
+              %a{:href => url_for(controller: :homes, action: :index)} Home
             %li
-              %a{:href => "#about"} About
+              %a{:href => url_for(controller: :homes, action: :about)} About
             %li
-              %a{:href => "#contact"} Contact
+              %a{:href => url_for(controller: :homes, action: :contact)} Contact
     .container
       = yield
     %script{:src => "//maps.google.com/maps/api/js?v=3.13&sensor=false&libraries=geometry", :type => "text/javascript"}

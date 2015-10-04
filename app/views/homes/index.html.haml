@@ -1,10 +1,10 @@
 .container
   .starter-template
-    %h1 Welcome to GotHeat
+    %h1 Welcome to GotHeat!
     %p.lead
-      This app will attempt to predict the likelihood of your building having heat related issues.
+      This app will classify your building as high or low risk for heating issues.
     %p
-      Use the form below to enter a building and see a prediction
+      Use the form below to enter a building's info and see the results.
 .container
   .row
     .col-sm-6
@@ -15,33 +15,35 @@
               =label_tag(:zip, "Zip:")
               =text_field_tag(:zip)
             .form-group
-              =label_tag(:year, "year:")
+              =label_tag(:year, "Year:")
               =text_field_tag(:year)
             .form-group
-              =label_tag(:units, "units:")
+              =label_tag(:units, "Units:")
               =text_field_tag(:units)
             .form-group
-              =submit_tag("Predict")
+              =submit_tag("Predict!")
       %p.page-header
-        Prediction
+        Prediction:
 
       -if params["vote"]
         -if params["vote"] == "positive"
           %div.high-heat
             =fa_stacked_icon "thumbs-o-up xinverse", base: "square-o", class: "fa-5x"
+          %p You're good!
         -elsif params["vote"] == "negative"
           %div.low-heat
             =fa_stacked_icon "thumbs-o-down xinverse", base: "square-o", class: "fa-5x"
+          %p Buy a sweater!
       -else
-        %p You haven't submitted
+        %p You haven't submitted anything!
 
     .col-sm-6
 
-      %div
-        =form_tag( home_path, :method => :post ) do
-          =label_tag(:q, "Search for:")
-          =text_field_tag(:q)
-          =submit_tag("Search")
+      / %div
+      /   =form_tag( home_path, :method => :post ) do
+      /     =label_tag(:q, "Search for:")
+      /     =text_field_tag(:q)
+      /     =submit_tag("Search")
 
       %hr
       %div#map{style: 'width: 800px; height: 400px;'}

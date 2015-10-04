@@ -29,12 +29,15 @@ class HomesController < ApplicationController
     headers['Authorization'] = "Bearer #{api_key}"
     @result = HTTParty.post(url, :body => data.to_json, :headers => headers )
     @res = @result["Results"]["output1"]["value"]["Values"][0][4] #note: 1 is -ve 0 is +ve
-    if @res == 1
-      vote = 'positive'
-    else
+    if @res == "1"
       vote = 'negative'
+    else
+      vote = 'positive'
     end
     redirect_to :controller => 'homes', :action => 'index', :vote => "#{vote}"
-
   end
+
+  def about
+  end
+
 end
