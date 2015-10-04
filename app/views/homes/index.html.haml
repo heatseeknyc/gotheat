@@ -46,5 +46,58 @@
       /     =submit_tag("Search")
 
       %hr
-      %div#map{style: 'width: 800px; height: 400px;'}
+      %div#map-canvas{style: 'width: 600px; height: 500px;'}
       -# -markers = handler.addMarkers(<%=raw @hash.to_json %>);
+
+      / %script{:type => "text/javascript"}
+      %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"}
+      %script{:src => "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize"}
+      :javascript
+        var map;
+        var global_markers = [];
+        var markers = [[40.722173, -73.823385, 0], [40.724178, -73.853285, 1], [40.759278, -73.853285, 0]];
+
+        // var infowindow = new google.maps.InfoWindow({});
+
+        function initialize() {
+          geocoder = new google.maps.Geocoder();
+          var latlng = new google.maps.LatLng(40.729178, -73.853285);
+          var myOptions = {
+              zoom: 10,
+              center: latlng,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+          }
+          map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+          addMarker();
+        }
+
+        function addMarker() {
+          for (var i = 0; i < markers.length; i++) {
+            // obtain the attribues of each marker
+            var lat = parseFloat(markers[i][0]);
+            var lng = parseFloat(markers[i][1]);
+            var cold = markers[i][2];
+            var opac = cold ? 1 : 0.4;
+
+            var myLatlng = new google.maps.LatLng(lat, lng);
+
+            var contentString = "<html><body><div><p><h2>Hi!</h2></p></div></body></html>";
+
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                opacity: opac,
+            });
+
+            // marker['infowindow'] = contentString;
+
+            global_markers[i] = marker;
+
+            // google.maps.event.addListener(global_markers[i], 'click', function() {
+            //     infowindow.setContent(this['infowindow']);
+            //     infowindow.open(map, this);
+            // });
+          }
+        }
+
+        window.onload = initialize;
