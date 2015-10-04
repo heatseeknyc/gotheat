@@ -1,0 +1,42 @@
+.container
+  .starter-template
+    %h1 Welcome to GotHeat
+    %p.lead
+      This app will attempt to predict the likelihood of your building having heat related issues.
+    %p
+      Use the form below to enter a building and see a prediction
+.container
+  .row
+    .col-sm-6
+      .row
+        .col-sm-8
+          =form_tag( home_path, :method => :post ) do
+            .form-group
+              =label_tag(:zip, "Zip:")
+              =text_field_tag(:zip)
+            .form-group
+              =label_tag(:year, "year:")
+              =text_field_tag(:year)
+            .form-group
+              =label_tag(:units, "units:")
+              =text_field_tag(:units)
+            .form-group
+              =submit_tag("Predict")
+      %p.page-header
+        Prediction
+
+      -if params["vote"]
+        -if params["vote"] == "positive"
+          %div.high-heat
+            =fa_stacked_icon "thumbs-o-up xinverse", base: "square-o", class: "fa-5x"
+        -elsif params["vote"] == "negative"
+          %div.low-heat
+            =fa_stacked_icon "thumbs-o-down xinverse", base: "square-o", class: "fa-5x"
+      -else
+        %p You haven't submitted
+
+    .col-sm-6
+      =form_tag( home_path, :method => :post ) do
+        =label_tag(:q, "Search for:")
+        =text_field_tag(:q)
+        =submit_tag("Search")
