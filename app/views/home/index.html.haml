@@ -36,7 +36,12 @@
         %p You haven't submitted
 
     .col-sm-6
-      =form_tag( home_path, :method => :post ) do
-        =label_tag(:q, "Search for:")
-        =text_field_tag(:q)
-        =submit_tag("Search")
+      %div#map
+      %div
+        =form_tag( home_path, :method => :post ) do
+          =label_tag(:q, "Search for:")
+          =text_field_tag(:q)
+          =submit_tag("Search")
+      %hr
+
+      /markers = handler.addMarkers(<%=raw @hash.to_json %>);
